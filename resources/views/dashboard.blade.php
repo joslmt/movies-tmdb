@@ -20,8 +20,27 @@
             <!-- 
                 Top rated movies
              -->
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <x-movieweb.movies.moviestop></x-movieweb.movies.moviestop>
+            <div class="grid grid-cols-4 bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                @foreach ($movies as $movie)
+                <x-movieweb.movies.moviestop>
+                    <x-slot name="poster_path">
+                        {{ $movie->poster_path }}
+                    </x-slot>
+                    <x-slot name="category">
+                        {{ $movie->category }}
+                    </x-slot>
+                    <x-slot name="title">
+                        {{ $movie->title }}
+                    </x-slot>
+                    <x-slot name="overview">
+                        {{ $movie->overview }}
+                    </x-slot>
+                    <x-slot name="id">
+                        {{ $movie->id }}
+                    </x-slot>
+                </x-movieweb.movies.moviestop>
+                @endforeach
+
             </div>
 
             <!-- 

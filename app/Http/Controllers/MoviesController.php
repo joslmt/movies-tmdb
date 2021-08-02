@@ -2,19 +2,63 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Movies;
+use App\Models\Movie;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
 
 class MoviesController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Display a list of the actually top rated movies.
+     * 
+     * @param Movie $movie Get need it data. 
+     * @return View
      */
-    public function index()
+    public function index(Movie $movie): View
     {
-        //
+        /**
+         * Array of objects.
+         */
+        $movies = $movie->getTopMovies();
+
+        /**
+         * Array of genre_ids of each one movie.
+         */
+        $categories_with_id = [];
+        foreach ($movies as $movie_category) {
+            array_push($categories_with_id, $movie_category->genre_ids[0]);
+        }
+
+        /**
+         * Array resultant of translate genre_id, get categories names.
+         */
+        $categories_with_name =
+            $movie->getCategory('movie', $categories_with_id);
+
+        /**
+         * Add a new property to inicial object.
+         */
+        foreach ($movies as $key => $movie) {
+            $movie->category = $categories_with_name[$key];
+        }
+
+        return view('dashboard', compact('movies'));
+    }
+
+    /**
+     * Display movie details.
+     *
+     * @param Movie $movie
+     * @param int $id
+     * @return View
+     */
+    public function seeMore(Movie $movie, int $id): View
+    {
+        /**
+         * No visualiza el iframe.
+         */
+        $movie_details = $movie->getMovieDetails($id);
+        return view('components.movieweb.movies.moviedetails', compact('movie_details'));
     }
 
     /**
@@ -41,10 +85,10 @@ class MoviesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Movies  $movies
+     * @param  \App\Models\Movie  $movie
      * @return \Illuminate\Http\Response
      */
-    public function show(Movies $movies)
+    public function show(Movie $movie)
     {
         //
     }
@@ -52,10 +96,10 @@ class MoviesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Movies  $movies
+     * @param  \App\Models\Movie  $movie
      * @return \Illuminate\Http\Response
      */
-    public function edit(Movies $movies)
+    public function edit(Movie $movie)
     {
         //
     }
@@ -64,10 +108,10 @@ class MoviesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Movies  $movies
+     * @param  \App\Models\Movie  $movie
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Movies $movies)
+    public function update(Request $request, Movie $movie)
     {
         //
     }
@@ -75,10 +119,10 @@ class MoviesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Movies  $movies
+     * @param  \App\Models\Movie  $movie
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Movies $movies)
+    public function destroy(Movie $movie)
     {
         //
     }

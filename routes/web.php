@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MoviesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,12 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-})->name('home');
+Route::get('/', [MoviesController::class, 'index'])->name('home');
+Route::get('/seemore/{id?}', [MoviesController::class, 'seeMore'])->name('seemore');
 
 require __DIR__ . '/auth.php';
 
-Route::view('/seemore', 'components.movieweb.movies.moviedetails')->name('seemore');
+
 Route::view('/profile', 'components.movieweb.general.profile')->name('profile');
 Route::view('/search', 'components.movieweb.general.resultsfound')->name('search');
