@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
+use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 
 class MoviesController extends Controller
 {
@@ -14,7 +15,7 @@ class MoviesController extends Controller
      * @param Movie $movie Get need it data. 
      * @return View
      */
-    public function index(Movie $movie): View
+    public function index(Movie $movie, Request $request): View
     {
         /**
          * Array of objects.
@@ -42,7 +43,23 @@ class MoviesController extends Controller
             $movie->category = $categories_with_name[$key];
         }
 
-        return view('dashboard', compact('movies'));
+        /**
+         * Custom pagination.
+         */
+        $page =  Paginator::resolveCurrentPage();
+        $perPage = 12;
+        $offset = ($page * $perPage) - $perPage;
+
+        $paginator = new Paginator(
+            $movies,
+            count($movies),
+            $perPage,
+            $page,
+            ['path'  => Paginator::resolveCurrentPath()]
+        );
+
+        $movies = array_slice($movies,  $offset, $perPage);
+        return view('dashboard', compact('movies', 'paginator'));
     }
 
     /**

@@ -68,13 +68,34 @@ class Movie extends Model
     protected $coincidences = [];
 
     /**
-     * Get top movies.
-     *
+     * Get top 100 movies of TMDB API.
+     * 
+     * @param int $page Number of page to search.
+     * 
      * @return array Movies and its available data.
      */
-    public function getTopMovies(): array
+    public function getTopMovies(int $page = 1): array
     {
-        return \TMDB::getTop('movie')->results;
+        /**
+         * Array of data.
+         * 
+         * @var array 
+         */
+        $total_top_rated_movies = [];
+
+        /**
+         * If we've 20 results / page, then 5 pages it's equals to 100 results.
+         */
+        do {
+            $total_top_rated_movies =
+                array_merge(
+                    $total_top_rated_movies,
+                    \TMDB::getTop('movie', ['page' => $page])->results
+                );
+            $page++;
+        } while (6 !== $page);
+
+        return $total_top_rated_movies;
     }
 
     /**
