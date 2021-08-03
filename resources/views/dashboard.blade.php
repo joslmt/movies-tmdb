@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
             <h3 class="text-gray-800 text-2xl text-center font-bold">
-                top rated movies
+                top 100 rated movies
             </h3>
             <x-movieweb.general.search></x-movieweb.general.search>
             <div class="grid grid-cols-4 bg-white overflow-hidden shadow-sm sm:rounded-lg">
