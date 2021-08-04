@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Movie extends Model
 {
@@ -77,6 +78,14 @@ class Movie extends Model
     public function getTopMovies(int $page = 1): array
     {
         /**
+         * Before do a request, we check if we have results cached.
+         */
+        $cacheKey = 'movies';
+        if (Cache::has($cacheKey)) {
+            return Cache::get($cacheKey);
+        }
+
+        /**
          * Array of data.
          * 
          * @var array 
@@ -94,6 +103,8 @@ class Movie extends Model
                 );
             $page++;
         } while (6 !== $page);
+
+        Cache::put($cacheKey, $total_top_rated_movies, now()->addMinutes(30));
 
         return $total_top_rated_movies;
     }
