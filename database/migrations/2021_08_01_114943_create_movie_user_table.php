@@ -19,6 +19,8 @@ class CreateMovieUserTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('movie_id')->constrained();
+            $table->string('title');
+            $table->string('img_path');
             $table->timestamps();
         });
     }
