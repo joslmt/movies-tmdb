@@ -75,7 +75,8 @@ class MoviesController extends Controller
          * No visualiza el iframe.
          */
         $movie_details = $movie->getMovieDetails($id);
-        return view('components.movieweb.movies.moviedetails', compact('movie_details'));
+        $videos = $movie_details->videos->results;
+        return view('components.movieweb.movies.moviedetails', compact('movie_details', 'videos'));
     }
 
     /**

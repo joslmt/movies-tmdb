@@ -37,6 +37,7 @@
         <!-- 
             Videos
          -->
+        @if (count($videos) > 0)
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <h3 class="text-gray-800 text-2xl text-center font-bold">
                 available videos
@@ -45,21 +46,20 @@
         <section class="text-gray-600 body-font">
             <div class="container px-5 py-24 mx-auto">
                 <div class="flex flex-wrap -m-4">
-                    @if (count($movie_details->videos->results) > 0)
-
-                    @foreach ($movie_details->videos->results as $video)
-                    <x-movieweb.general.videos>
-                        <x-slot name="key">
-                            $video->key
-                        </x-slot>
-                    </x-movieweb.general.videos>
+                    @foreach ($videos as $video)
+                    <div class="p-4 lg:w-1/3">
+                        <iframe id="" width="540" height="360" src="https://www.youtube.com/embed/{{ $video->key }}?autoplay=0&mute=1&enablejsapi=1" frameborder="0" class="py-2"></iframe>
+                    </div>
                     @endforeach
-
-                    @else
-                    <p>no videos</p>
-                    @endif
                 </div>
             </div>
         </section>
+        @else
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <h3 class="text-gray-800 text-2xl text-center font-bold">
+                no available videos
+            </h3>
+        </div>
+        @endif
     </div>
 </x-app-layout>
