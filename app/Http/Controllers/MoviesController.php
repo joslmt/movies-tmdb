@@ -13,6 +13,8 @@ class MoviesController extends Controller
      * Display a list of the actually top rated movies.
      * 
      * @param Movie $movie Get need it data. 
+     * @param Request $request
+     * 
      * @return View
      */
     public function index(Movie $movie, Request $request): View
@@ -68,21 +70,19 @@ class MoviesController extends Controller
     }
 
     /**
-     * Display movie details.
+     * Display movie details, like overview, category and available videos.
      *
      * @param Movie $movie
-     * @param int $id
+     * @param int $id references movie_id number
+     * 
      * @return View
      */
     public function seeMore(Movie $movie, int $id): View
     {
-        /**
-         * No visualiza el iframe.
-         */
         $userFavMovies = $movie->getFavmovies();
-
         $movie_details = $movie->getMovieDetails($id);
         $videos = $movie_details->videos->results;
+
         return view('components.movieweb.movies.moviedetails', compact('movie_details', 'videos', 'userFavMovies'));
     }
 
@@ -97,7 +97,10 @@ class MoviesController extends Controller
     }
 
     /**
-     * @inheritDoc
+     * Get favourite user's movie.
+     *
+     * @param Movie $movie
+     * @return array List of movie ids.
      */
     public function getFavMovies(Movie $movie): array
     {
@@ -107,6 +110,10 @@ class MoviesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param Movie $movie
+     * @param int $id
+     * @param string $title movie title.
+     * @param string $poster_path Path to movie poster.
      */
     public function store(Movie $movie, int $id, string $title, string $poster_path)
     {
@@ -151,8 +158,8 @@ class MoviesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Movie  $movie
-     * @return \Illuminate\Http\Response
+     * @param Movie $movie
+     * @param int $movie_id
      */
     public function destroy(Movie $movie, int $movie_id)
     {
