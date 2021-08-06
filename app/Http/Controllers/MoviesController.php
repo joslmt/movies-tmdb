@@ -25,8 +25,9 @@ class MoviesController extends Controller
          */
         if (Auth::user()) {
             $userFavMovies = $movie->getFavmovies();
+        } else {
+            $userFavMovies = '';
         }
-        $userFavMovies = '';
 
         /**
          * Array of objects.
@@ -88,8 +89,9 @@ class MoviesController extends Controller
          */
         if (Auth::user()) {
             $userFavMovies = $movie->getFavmovies();
+        } else {
+            $userFavMovies = '';
         }
-        $userFavMovies = '';
 
         $movie_details = $movie->getMovieDetails($id);
         $videos = $movie_details->videos->results;
