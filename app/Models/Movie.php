@@ -174,6 +174,10 @@ class Movie extends Model
 
     /**
      * Store data within database.
+     *
+     * @param int $movie_id
+     * @param string $title movie title.
+     * @param string $poster_path Path to movie poster.
      */
     public function store(int $movie_id, string $title, string $poster_path)
     {
@@ -194,6 +198,8 @@ class Movie extends Model
 
     /**
      * Delete data from database.
+     *
+     * @param int $movie_id
      */
     public function del(int $movie_id)
     {
