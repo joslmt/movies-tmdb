@@ -18,6 +18,11 @@ class MoviesController extends Controller
     public function index(Movie $movie, Request $request): View
     {
         /**
+         * User fav movies.
+         */
+        $userFavMovies = $movie->getFavmovies();
+
+        /**
          * Array of objects.
          */
         $movies = $movie->getTopMovies();
@@ -59,7 +64,7 @@ class MoviesController extends Controller
         );
 
         $movies = array_slice($movies,  $offset, $perPage);
-        return view('dashboard', compact('movies', 'paginator'));
+        return view('dashboard', compact('movies', 'paginator', 'userFavMovies'));
     }
 
     /**
@@ -74,9 +79,11 @@ class MoviesController extends Controller
         /**
          * No visualiza el iframe.
          */
+        $userFavMovies = $movie->getFavmovies();
+
         $movie_details = $movie->getMovieDetails($id);
         $videos = $movie_details->videos->results;
-        return view('components.movieweb.movies.moviedetails', compact('movie_details', 'videos'));
+        return view('components.movieweb.movies.moviedetails', compact('movie_details', 'videos', 'userFavMovies'));
     }
 
     /**
@@ -87,6 +94,14 @@ class MoviesController extends Controller
     public function create()
     {
         //
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getFavMovies(Movie $movie): array
+    {
+        return $movie->getFavmovies();
     }
 
     /**

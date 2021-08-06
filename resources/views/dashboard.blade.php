@@ -25,16 +25,19 @@
                             <p class="leading-relaxed my-4">
                                 {{ $movie->overview }}<a class="font-bold" href="{{ route('seemore', $movie->id) }}"> See more ...</a>
                             </p>
+                            @if(in_array($movie->id, $userFavMovies))
                             <form action="{{ route('delete', $movie->id) }}" method="post">
                                 @csrf
                                 <button class="flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">Delete from favorites</button>
                             </form>
+                            @else
                             <form action="{{ route('store', 
                                 [ $movie->id, $movie->title,  substr($movie->poster_path, 1) ]
                                 ) }}" method="post">
                                 @csrf
                                 <button class="flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Add to favorites</button>
                             </form>
+                            @endif
                         </div>
                     </div>
                 </div>

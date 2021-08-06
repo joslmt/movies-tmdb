@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class Movie extends Model
 {
@@ -154,6 +155,21 @@ class Movie extends Model
     public function getMovieDetails(int $id): object
     {
         return \TMDB::getDetails('movie', $id, true);
+    }
+
+    /**
+     * Return movies id that users has added.
+     * 
+     * @return array movie_id column of movie_user pivot table.
+     */
+    public function getFavmovies(): array
+    {
+        $user = User::findOrfail(Auth::user()->id);
+        $pivot_movies_ids = DB::table('movie_user')
+            ->where('user_id', '=', $user->id)
+            ->get();
+
+        return $pivot_movies_ids->pluck('movie_id')->toArray();
     }
 
     /**
