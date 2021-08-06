@@ -158,6 +158,21 @@ class Movie extends Model
     }
 
     /**
+     * Get info about user favourites movies, like title or image path.
+     * 
+     * @return array 
+     */
+    public function getProfileInfo(): array
+    {
+        $user = User::findOrfail(Auth::user()->id);
+        $pivot_movies_ids = DB::table('movie_user')
+            ->where('user_id', '=', $user->id)
+            ->get();
+
+        return $pivot_movies_ids->toArray();
+    }
+
+    /**
      * Return movies id that users has added.
      * 
      * @return array movie_id column of movie_user pivot table.

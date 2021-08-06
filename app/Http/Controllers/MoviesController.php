@@ -110,6 +110,18 @@ class MoviesController extends Controller
     }
 
     /**
+     * Show movies added to users profile.
+     *
+     * @param Movie $movie
+     * @return View
+     */
+    public function profile(Movie $movie): View
+    {
+        $favMovies = $movie->getProfileInfo();
+        return view('components.movieweb.general.profile', compact('favMovies'));
+    }
+
+    /**
      * Get favourite user's movie.
      *
      * @param Movie $movie

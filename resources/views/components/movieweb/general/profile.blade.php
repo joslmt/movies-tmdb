@@ -13,7 +13,6 @@
                     <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 border-t">
                         <div class="py-8 flex flex-wrap md:flex-nowrap">
                             <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-
                                 <label class=" flex flex-col items-center cursor-pointer">
                                     <div class="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0">
                                         <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-30 h-30" viewBox="0 0 24 24">
@@ -59,13 +58,21 @@
         <section class="text-gray-600 body-font">
             <div class="container px-5 py-24 mx-auto">
                 <div class="flex flex-wrap -m-4">
-
-                    @for ($a=0; $a<4; $a++) <x-movieweb.movies.moviesfav>
-                        <x-slot name="title">
-                            Blade Runner
-                        </x-slot>
-                        </x-movieweb.movies.moviesfav>
-                        @endfor
+                    @foreach ($favMovies as $favMovie)
+                    <div class="lg:w-1/4 md:w-1/2 sm:w-1/3 p-4">
+                        <div class="flex justify-between">
+                            <h3 class="text-center font-bold p-2">{{ $favMovie->title }}</h3>
+                            <form action="{{ route('delete', $favMovie->movie_id ) }}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button class="mb-4 flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">Delete</button>
+                            </form>
+                        </div>
+                        <a href="{{ route('seemore', $favMovie->movie_id ) }}" class="block relative h-48 rounded overflow-hidden">
+                            <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="http://image.tmdb.org/t/p/w500/{{ $favMovie->img_path }}">
+                        </a>
+                    </div>
+                    @endforeach
                 </div>
             </div>
         </section>

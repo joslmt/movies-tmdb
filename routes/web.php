@@ -24,5 +24,6 @@ Route::delete('/delete/{id?}', [MoviesController::class, 'destroy'])->name('dele
 require __DIR__ . '/auth.php';
 
 
-Route::view('/profile', 'components.movieweb.general.profile')->name('profile')->middleware('auth');;
+Route::get('/profile', [MoviesController::class, 'profile'])->name('profile')->middleware('auth');
+
 Route::view('/search', 'components.movieweb.general.resultsfound')->name('search');
