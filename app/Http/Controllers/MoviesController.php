@@ -92,12 +92,11 @@ class MoviesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Movie $movie, int $id, string $title, string $poster_path)
     {
-        //
+        $movie->store($id, $title, $poster_path);
+        return redirect()->back();
     }
 
     /**
@@ -140,8 +139,9 @@ class MoviesController extends Controller
      * @param  \App\Models\Movie  $movie
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Movie $movie)
+    public function destroy(Movie $movie, int $movie_id)
     {
-        //
+        $movie->del($movie_id);
+        return redirect()->back();
     }
 }

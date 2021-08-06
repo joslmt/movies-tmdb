@@ -4,11 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use App\Models\User;
 
 class Movie extends Model
 {
     use HasFactory;
+    protected $fillable = ['id'];
 
     /**
      * List of movie genres for each code.
@@ -151,6 +154,35 @@ class Movie extends Model
     public function getMovieDetails(int $id): object
     {
         return \TMDB::getDetails('movie', $id, true);
+    }
+
+    /**
+     * Store data within database.
+     */
+    public function store(int $movie_id, string $title, string $poster_path)
+    {
+        $user = User::findOrfail(Auth::user()->id);
+        Movie::updateOrCreate([
+            'id' => $movie_id,
+        ]);
+
+        $user->movies()->attach(
+            Auth::user()->id,
+            [
+                'movie_id' => $movie_id,
+                'title' => $title,
+                'img_path' => $poster_path,
+            ]
+        );
+    }
+
+    /**
+     * Delete data from database.
+     */
+    public function del(int $movie_id)
+    {
+        $user = User::findOrfail(Auth::user()->id);
+        $user->movies()->detach($movie_id);
     }
 
     /**
