@@ -25,6 +25,8 @@
                             <p class="leading-relaxed my-4">
                                 {{ $movie->overview }}<a class="font-bold" href="{{ route('seemore', $movie->id) }}"> See more ...</a>
                             </p>
+
+                            @auth
                             @if(in_array($movie->id, $userFavMovies))
                             <form action="{{ route('delete', $movie->id) }}" method="post">
                                 @csrf
@@ -38,6 +40,8 @@
                                 <button class="flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Add to favorites</button>
                             </form>
                             @endif
+                            @endauth
+
                         </div>
                     </div>
                 </div>

@@ -6,6 +6,7 @@ use App\Models\Movie;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
+use Illuminate\Support\Facades\Auth;
 
 class MoviesController extends Controller
 {
@@ -20,9 +21,12 @@ class MoviesController extends Controller
     public function index(Movie $movie, Request $request): View
     {
         /**
-         * User fav movies.
+         * Authenticate user favourite movies.
          */
-        $userFavMovies = $movie->getFavmovies();
+        if (Auth::user()) {
+            $userFavMovies = $movie->getFavmovies();
+        }
+        $userFavMovies = '';
 
         /**
          * Array of objects.
@@ -79,7 +83,14 @@ class MoviesController extends Controller
      */
     public function seeMore(Movie $movie, int $id): View
     {
-        $userFavMovies = $movie->getFavmovies();
+        /**
+         * Authenticate user favourite movies.
+         */
+        if (Auth::user()) {
+            $userFavMovies = $movie->getFavmovies();
+        }
+        $userFavMovies = '';
+
         $movie_details = $movie->getMovieDetails($id);
         $videos = $movie_details->videos->results;
 

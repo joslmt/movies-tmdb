@@ -22,6 +22,8 @@
                                 <p class="text-gray-400 text-lg font-bold">{{ $movie_details->genres[0]->name }}</p>
                             </h1>
                             <p class="mb-8 leading-relaxed">{{ $movie_details->overview }}</p>
+
+                            @auth
                             <div class="flex justify-center">
                                 @if(in_array($movie_details->id, $userFavMovies))
                                 <form action="{{ route('delete', $movie_details->id) }}" method="post">
@@ -37,6 +39,8 @@
                                 </form>
                                 @endif
                             </div>
+                            @endauth
+
                         </div>
                 </section>
             </div>
