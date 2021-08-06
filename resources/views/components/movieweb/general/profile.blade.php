@@ -6,13 +6,8 @@
             </h3>
         </div>
 
-        <!-- 
-            Bio info
-         -->
         <section class="text-gray-600 body-font overflow-hidden">
-            <!-- 
-                    Profile image 
-                -->
+
             <div class="container px-5 pt-20 pb-14 mx-auto">
                 <div class="-my-8 divide-y-2 divide-gray-100">
                     <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 border-t">
@@ -40,12 +35,16 @@
                                 <p class="leading-relaxed">
                                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolorum, saepe blanditiis nemo enim iste libero quae natus commodi necessitatibus pariatur quam corporis qui temporibus dignissimos, accusamus iure esse vitae.
                                 </p>
-
-                                <a href="#">
-                                    <button class="shadow bg-purple-300 hover:bg-purple-500 focus:shadow-outline focus:outline-none text-white font-bold py-1 px-12 rounded" type="button">
-                                        Edit
-                                    </button>
-                                </a>
+                                <div class="flex">
+                                    <a href="#">
+                                        <button class="shadow bg-purple-300 hover:bg-purple-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded" type="button">
+                                            Edit
+                                        </button>
+                                    </a>
+                                    <a href="{{ route('home') }}">
+                                        <button class="ml-2 flex text-white bg-gray-500 border-0 py-2 px-6 focus:outline-none hover:bg-gray-600 rounded">Back</button>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>

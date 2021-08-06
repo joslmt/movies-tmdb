@@ -23,8 +23,8 @@
                             </h1>
                             <p class="mb-8 leading-relaxed">{{ $movie_details->overview }}</p>
 
-                            @auth
                             <div class="flex justify-center">
+                                @auth
                                 @if(in_array($movie_details->id, $userFavMovies))
                                 <form action="{{ route('delete', $movie_details->id) }}" method="post">
                                     @csrf
@@ -39,8 +39,11 @@
                                     <button class="flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Add to favorites</button>
                                 </form>
                                 @endif
+                                @endauth
+                                <a href="{{ route('home') }}">
+                                    <button class="ml-2 flex text-white bg-gray-500 border-0 py-2 px-6 focus:outline-none hover:bg-gray-600 rounded">Back</button>
+                                </a>
                             </div>
-                            @endauth
 
                         </div>
                 </section>
