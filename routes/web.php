@@ -19,7 +19,7 @@ Route::get('/seemore/{id?}', [MoviesController::class, 'seeMore'])->name('seemor
 
 Route::post('/store/{id?}/{title?}/{poster_path?}', [MoviesController::class, 'store'])->name('store')->middleware('auth');
 
-Route::post('/delete/{id?}', [MoviesController::class, 'destroy'])->name('delete')->middleware('auth');
+Route::delete('/delete/{id?}', [MoviesController::class, 'destroy'])->name('delete')->middleware('auth');
 
 require __DIR__ . '/auth.php';
 
