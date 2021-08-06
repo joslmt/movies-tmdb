@@ -17,9 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [MoviesController::class, 'index'])->name('home');
 Route::get('/seemore/{id?}', [MoviesController::class, 'seeMore'])->name('seemore');
 
-Route::post('/store/{id?}/{title?}/{poster_path?}', [MoviesController::class, 'store'])->name('store');
+Route::post('/store/{id?}/{title?}/{poster_path?}', [MoviesController::class, 'store'])->name('store')->middleware('auth');
 
-Route::post('/delete/{id?}', [MoviesController::class, 'destroy'])->name('delete');
+Route::post('/delete/{id?}', [MoviesController::class, 'destroy'])->name('delete')->middleware('auth');
 
 require __DIR__ . '/auth.php';
 
