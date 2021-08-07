@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdatedUserDescriptionRequest;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
@@ -110,7 +111,7 @@ class MoviesController extends Controller
     }
 
     /**
-     * Show movies added to users profile.
+     * Show movies added to users profile and his profile description.
      *
      * @param Movie $movie
      * @return View
@@ -118,8 +119,25 @@ class MoviesController extends Controller
     public function profile(Movie $movie): View
     {
         $favMovies = $movie->getProfileInfo();
-        return view('components.movieweb.general.profile', compact('favMovies'));
+        $description = $movie->getProfileDescription();
+        return view('components.movieweb.general.profile', compact('favMovies', 'description'));
     }
+
+
+    /**
+     * Update users description.
+     *
+     * @param Movie $movie
+     * @param UpdatedUserDescriptionRequest $request Rules to a correct 
+     * description.
+     */
+    public function description(Movie $movie, UpdatedUserDescriptionRequest $request)
+    {
+        $description = $request->input('description');
+        $movie->updateDescription($description);
+        return redirect()->back();
+    }
+
 
     /**
      * Get favourite user's movie.

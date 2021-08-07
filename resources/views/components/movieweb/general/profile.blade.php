@@ -30,24 +30,29 @@
                                 <h2 class="text-2xl font-medium text-gray-900 title-font mb-2">
                                     {{ Auth::user()->name }}
                                 </h2>
-
-                                <p class="leading-relaxed">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolorum, saepe blanditiis nemo enim iste libero quae natus commodi necessitatibus pariatur quam corporis qui temporibus dignissimos, accusamus iure esse vitae.
-                                </p>
-                                <div class="flex">
-                                    <a href="#">
-                                        <button class="shadow bg-purple-300 hover:bg-purple-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded" type="button">
+                                @if ($errors)
+                                @foreach ($errors->all() as $message)
+                                <p class="leading-relaxed my-4 text-red-600 font-semibold">{{ $message }}</p>
+                                @endforeach
+                                @endif
+                                <form action="{{ route('description') }}" method="post">
+                                    @csrf
+                                    <textarea maxlength="255" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" name="description" id="" cols="30" rows="10">
+                                    {{ $description }}
+                                    </textarea>
+                                    <div class="flex">
+                                        <button type="submit" class="shadow bg-purple-300 hover:bg-purple-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded" type="button">
                                             Edit
                                         </button>
-                                    </a>
-                                    <a href="{{ route('home') }}">
-                                        <button class="ml-2 flex text-white bg-gray-500 border-0 py-2 px-6 focus:outline-none hover:bg-gray-600 rounded">Back</button>
-                                    </a>
-                                </div>
+                                </form>
+                                <a href="{{ route('home') }}">
+                                    <button class="ml-2 flex text-white bg-gray-500 border-0 py-2 px-6 focus:outline-none hover:bg-gray-600 rounded">Back</button>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
         </section>
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

@@ -173,6 +173,29 @@ class Movie extends Model
     }
 
     /**
+     * Return users profile description.
+     *
+     * @return string Description about the user.
+     */
+    public function getProfileDescription(): string
+    {
+        $userDescription = User::select('description')->where('id', '=', (Auth::user()->id))->pluck('description');
+        return $userDescription->toArray()[0];
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param string $description
+     */
+    public function updateDescription(string $description)
+    {
+        $user = User::findOrfail(Auth::user()->id);
+        $user->description = $description;
+        $user->save();
+    }
+
+    /**
      * Return movies id that users has added.
      * 
      * @return array movie_id column of movie_user pivot table.
