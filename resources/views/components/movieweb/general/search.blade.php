@@ -3,7 +3,7 @@
 
         <form action="{{ route('search') }}" class="flex justify-between">
             <div class="flex w-full">
-                <input type="text" placeholder="Blade runner" name="" id="" class="p-3 w-full border-none">
+                <input type="text" placeholder="Blade runner" name="movie" id="" class="p-3 w-full border-none">
                 <select name="genres" id="genres" class="w-1/3 border-none focus:bg-white focus:ring-2 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                     <optgroup label="Genres">
                         <option value="Action">Action</option>

@@ -23,8 +23,7 @@ Route::delete('/delete/{id?}', [MoviesController::class, 'destroy'])->name('dele
 
 require __DIR__ . '/auth.php';
 
-
 Route::get('/profile', [MoviesController::class, 'profile'])->name('profile')->middleware('auth');
 Route::post('/description', [MoviesController::class, 'description'])->name('description')->middleware('auth');
 
-Route::view('/search', 'components.movieweb.general.resultsfound')->name('search');
+Route::get('/search', [MoviesController::class, 'searchMovie'])->name('search');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SearchMoviesRequest;
 use App\Http\Requests\UpdatedUserDescriptionRequest;
 use App\Models\Movie;
 use Illuminate\Http\Request;
@@ -184,6 +185,18 @@ class MoviesController extends Controller
     public function edit(Movie $movie)
     {
         //
+    }
+
+    /**
+     * Search for results and return 2000 movies by default like max.
+     *
+     * @param SearchMoviesRequest $request
+     * @param Movie $movie
+     * @return array
+     */
+    public function searchMovie(SearchMoviesRequest $request, Movie  $movie): array
+    {
+        return $movie->searchMovie($request);
     }
 
     /**

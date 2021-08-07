@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Http\Requests\SearchMoviesRequest;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 class Movie extends Model
 {
@@ -170,6 +172,26 @@ class Movie extends Model
             ->get();
 
         return $pivot_movies_ids->toArray();
+    }
+
+    /**
+     * Search for results and return 2000 movies by default like max.
+     *
+     * @param Request $request
+     * 
+     * @return array
+     */
+    public function searchMovie(SearchMoviesRequest $request): array
+    {
+        $query = $request->input('movie');
+        $cacheKey = "searchResults{$query}";
+
+        Cache::has($cacheKey) ? Cache::get($cacheKey)
+            :
+            $search = \TMDB::searchAsync('movie', $query);
+
+        Cache::put($cacheKey, $search, now()->addMinutes(30));
+        return $search;
     }
 
     /**
