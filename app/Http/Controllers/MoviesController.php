@@ -102,16 +102,6 @@ class MoviesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Show movies added to users profile and his profile description.
      *
      * @param Movie $movie
@@ -163,28 +153,6 @@ class MoviesController extends Controller
     {
         $movie->store($id, $title, $poster_path);
         return redirect()->back();
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Movie  $movie
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Movie $movie)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Movie  $movie
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Movie $movie)
-    {
-        //
     }
 
     /**
@@ -256,18 +224,6 @@ class MoviesController extends Controller
 
         $movies = array_slice($movies,  $offset, $perPage);
         return view('components.movieweb.general.resultsfound', compact('movies', 'paginator', 'userFavMovies'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Movie  $movie
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Movie $movie)
-    {
-        //
     }
 
     /**
