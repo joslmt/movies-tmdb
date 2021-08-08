@@ -55,6 +55,9 @@
             </div>
         </section>
 
+        @if (count($favMovies) === 0)
+
+        @else
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <h3 class="text-gray-800 text-2xl text-center font-bold">
                 fav movies added
@@ -81,6 +84,6 @@
                 </div>
             </div>
         </section>
-
+        @endif
     </div>
 </x-app-layout>
