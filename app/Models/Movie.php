@@ -45,6 +45,8 @@ class Movie extends Model
 
     /**
      * List of tv show genres for each code.
+     * 
+     * For future application updates.
      *
      * @var array
      */
@@ -186,12 +188,13 @@ class Movie extends Model
         $query = $request->input('movie');
         $cacheKey = "searchResults{$query}";
 
-        Cache::has($cacheKey) ? Cache::get($cacheKey)
-            :
+        if (Cache::has($cacheKey)) {
+            return Cache::get($cacheKey);
+        } else {
             $search = \TMDB::searchAsync('movie', $query);
-
-        Cache::put($cacheKey, $search, now()->addMinutes(30));
-        return $search;
+            Cache::put($cacheKey, $search, now()->addMinutes(30));
+            return $search;
+        }
     }
 
     /**

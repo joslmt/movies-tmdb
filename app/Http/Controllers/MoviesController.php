@@ -192,11 +192,70 @@ class MoviesController extends Controller
      *
      * @param SearchMoviesRequest $request
      * @param Movie $movie
-     * @return array
+     * @return View
      */
-    public function searchMovie(SearchMoviesRequest $request, Movie  $movie): array
+    public function searchMovie(SearchMoviesRequest $request, Movie  $movie): View
     {
-        return $movie->searchMovie($request);
+        /**
+         * Authenticate user favourite movies.
+         */
+        if (Auth::user()) {
+            $userFavMovies = $movie->getFavmovies();
+        } else {
+            $userFavMovies = '';
+        }
+
+        /**
+         * @var array Movies founded. 
+         */
+        $movies = $movie->searchMovie($request);
+
+        /**
+         * Array of genre_ids of each one movie.
+         * 
+         * A few movies doesn't have genre_ids.
+         */
+        $categories_with_id = [];
+        foreach ($movies as $movie_category) {
+            array_push(
+                $categories_with_id,
+                $movie_category->genre_ids[0] ?? 'undefined'
+            );
+        }
+
+        /**
+         * Array resultant of translate genre_id, get categories names.
+         */
+        $categories_with_name =
+            $movie->getCategory('movie', $categories_with_id);
+
+        /**
+         * Add a new property to inicial object.
+         */
+        foreach ($movies as $key => $movie) {
+            $movie->category = $categories_with_name[$key];
+        }
+
+        /**
+         * Custom pagination.
+         */
+        $page =  Paginator::resolveCurrentPage();
+        $perPage = 12;
+        $offset = ($page * $perPage) - $perPage;
+        $paginator = new Paginator(
+            $movies,
+            count($movies),
+            $perPage,
+            $page,
+            [
+                'path'  => Paginator::resolveCurrentPath(),
+                'query' => $request->query()
+            ],
+
+        );
+
+        $movies = array_slice($movies,  $offset, $perPage);
+        return view('components.movieweb.general.resultsfound', compact('movies', 'paginator', 'userFavMovies'));
     }
 
     /**
