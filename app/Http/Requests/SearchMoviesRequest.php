@@ -24,7 +24,7 @@ class SearchMoviesRequest extends FormRequest
     public function rules()
     {
         return [
-            'movie' => 'required|between:2,10'
+            'movie' => 'required|between:2,50'
         ];
     }
 
