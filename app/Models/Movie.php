@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 class Movie extends Model
 {
     use HasFactory;
+
     protected $fillable = ['id'];
 
     /**
@@ -209,7 +210,7 @@ class Movie extends Model
     }
 
     /**
-     * Undocumented function
+     * Update description form, from the users profile.
      *
      * @param string $description
      */
