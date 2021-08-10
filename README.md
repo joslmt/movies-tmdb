@@ -3,8 +3,12 @@
 - [What is](#what-is)
   - [Project purpose](#project-purpose)
   - [What uses](#what-uses)
+  - [Screenshots](#screenshots)
+    - [**moviesFounded**](#moviesfounded)
+    - [**movieDetails**](#moviedetails)
   - [How to install](#how-to-install)
   - [How to configure](#how-to-configure)
+  - [Getting a valid API key from The Movie Database](#getting-a-valid-api-key-from-the-movie-database)
   - [Testing](#testing)
     - [Why test with SQLite](#why-test-with-sqlite)
     - [How to configure](#how-to-configure-1)
@@ -12,12 +16,11 @@
   - [License](#license)
   
 # What is
-It's a simple web develop with Laravel 8 that uses [The Movie Database API](https://www.themoviedb.org/documentation/api) to get detailed data about movies. 
+It's a simple web develop with Laravel 8 that uses [The Movie Database API](https://www.themoviedb.org/documentation/api) to get detailed data about movies, The Movie Database it's a big web with a lot of thousands movies, series and much more such as actors information.
 
-Some features are, if you're logged, you'll could add or remove whatever movies to favourites, in your profile user there're a list of fav movies added. 
+Some features are, if you're log, you'll could add or remove whatever movies to favourites, in your profile user there're a list of fav movies added. 
 
-Also you can see more details about a concret movie by clicking it, details like available videos or a extensive overview.
-
+Also you can see more details about a concret movie by clicking it, details like available videos or an extensive overview.
 
 ## Project purpose
 The main purpose of movies-tmdb was, and are, learn deeper concepts about Laravel like testing, routes, request, how it works or how to do a correct deploy, but the initial idea to do this project was to test my own Laravel API wrapper [joslmt/tmdb-laravel-wrapper](https://github.com/joslmt/tmdb-laravel-wrapper) .
@@ -28,6 +31,14 @@ The main purpose of movies-tmdb was, and are, learn deeper concepts about Larave
 - Laravel Breeze for handle authentication features, [Laravel Breeze](https://laravel.com/docs/8.x/starter-kits#laravel-breeze) .
 - My custom Laravel wrapper package [joslmt/tmdb-laravel-wrapper](https://github.com/joslmt/tmdb-laravel-wrapper), to get information about [The Movie Database API](https://www.themoviedb.org/documentation/api) .
 - "brianium/paratest" package to run parallel test.
+
+## Screenshots
+Some pictures about movies-tmdb web.
+
+### **moviesFounded**
+![moviesFounded](https://user-images.githubusercontent.com/64318244/128920316-07992fa6-4cb3-467e-ab2e-396abb93d746.PNG)
+### **movieDetails**
+![movieDetails](https://user-images.githubusercontent.com/64318244/128920608-93750b1e-48d9-4d4b-8445-6e3855893b02.PNG)
 
 ## How to install
 Clone the repository and install project dependencies with :
@@ -62,6 +73,9 @@ Now it's time to configure the database, the project uses MySQL , within `.env` 
    DB_USERNAME=
    DB_PASSWORD=
 ```
+
+## Getting a valid API key from The Movie Database
+To get your api key, that makes posible to do request to TMDB, just go to [The Movie Database](https://developers.themoviedb.org/3 ) and follow the steps, like register and generate a key.
 
 ## Testing
 It's recommended to have a few tests to ensure the project features and to feel confident with superficial or deeper changes done on the project.
