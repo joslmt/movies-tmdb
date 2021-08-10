@@ -38,22 +38,6 @@
 
     <x-movieweb.general.footer></x-movieweb.general.footer>
 
-    <!-- 
-        Vuejs
-     -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
-    <script>
-        let elements = document.querySelectorAll('#app')
-
-        for (let app of elements) {
-            new Vue({
-                el: app,
-                data: {
-                    isFavorite: false
-                }
-            })
-        }
-    </script>
 </body>
 
 </html>
