@@ -19,10 +19,6 @@
                                             <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
                                         </svg>
                                     </div>
-
-                                    <span class="mt-1 text-gray-500 text-sm">12 Jun 2019</span>
-                                    <input type='file' class="hidden" />
-                                    <input type="submit" value="upload" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
                                 </label>
 
                             </div>
@@ -37,16 +33,14 @@
                                 @endif
                                 <form action="{{ route('description') }}" method="post">
                                     @csrf
-                                    <textarea maxlength="255" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" name="description" id="" cols="30" rows="10">
-                                    {{ $description }}
-                                    </textarea>
+                                    <textarea maxlength="255" class="w-full bg-white rounded border-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-36 text-base outline-none text-gray-700 py-2 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" name="description" id="" cols="30" rows="10">{{ $description }}</textarea>
                                     <div class="flex">
-                                        <button type="submit" class="shadow bg-purple-300 hover:bg-purple-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded" type="button">
+                                        <button type="submit" class="shadow bg-purple-300 hover:bg-purple-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-12 rounded" type="button">
                                             Edit
                                         </button>
                                 </form>
                                 <form action="{{ route('home') }}" method="get">
-                                    <button class="ml-2 flex text-white bg-gray-500 border-0 py-2 px-6 focus:outline-none hover:bg-gray-600 rounded">Back</button>
+                                    <button class="ml-2 flex text-white bg-gray-500 border-0 py-2 px-12 focus:outline-none hover:bg-gray-600 rounded">Back</button>
                                 </form>
                             </div>
                         </div>
