@@ -18,10 +18,22 @@
                             <img class="object-cover object-center rounded mb-5" alt="" src="http://image.tmdb.org/t/p/w400/{{ $movie_details->poster_path }}">
                         </div>
                         <div class="lg:flex-grow md:w-1/2 lg:pr-24 md:pl-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
-                            <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">{{ $movie_details->title }}
-                                <p class="text-gray-400 text-lg font-bold">{{ $movie_details->genres[0]->name }}</p>
+                            <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
+                                {{ $movie_details->title }}
+                                <span class="text-xs font-semibold">
+                                    {{ $movie_details->release_date }}
+                                </span>
+                                <p class="text-indigo-400 text-lg font-bold">{{ $movie_details->genres[0]->name }}</p>
+                                <p class="text-gray-500 text-lg font-bold">
+                                    {{ $movie_details->tagline }}
+                                </p>
                             </h1>
-                            <p class="mb-8 leading-relaxed">{{ $movie_details->overview }}</p>
+                            <p class="m-4 leading-relaxed">
+                                {{ $movie_details->overview }}
+                                <span class="rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs text-white font-bold mr-3">
+                                    Votes {{ $movie_details->vote_average }}
+                                </span>
+                            </p>
 
                             <div class="flex justify-center">
                                 @auth
