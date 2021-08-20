@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SearchMoviesRequest;
 use App\Http\Requests\UpdatedUserDescriptionRequest;
 use App\Models\Movie;
-use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 use Illuminate\Support\Facades\Auth;
@@ -16,11 +15,10 @@ class MoviesController extends Controller
      * Display a list of the actually top rated movies.
      * 
      * @param Movie $movie Get need it data. 
-     * @param Request $request
      * 
      * @return View
      */
-    public function index(Movie $movie, Request $request): View
+    public function index(Movie $movie): View
     {
         /**
          * Authenticate user favourite movies.
@@ -124,8 +122,7 @@ class MoviesController extends Controller
      */
     public function description(Movie $movie, UpdatedUserDescriptionRequest $request)
     {
-        $description = $request->input('description');
-        $movie->updateDescription($description);
+        $movie->updateDescription($request->input('description'));
         return redirect()->back();
     }
 
@@ -176,7 +173,7 @@ class MoviesController extends Controller
         /**
          * @var array Movies founded. 
          */
-        $movies = $movie->searchMovie($request);
+        $movies = $movie->searchMovie($request->input('movie'));
 
         /**
          * Array of genre_ids of each one movie.

@@ -2,14 +2,12 @@
 
 namespace App\Models;
 
-use App\Http\Requests\SearchMoviesRequest;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
 
 class Movie extends Model
 {
@@ -180,19 +178,18 @@ class Movie extends Model
     /**
      * Search for results and return 2000 movies by default like max.
      *
-     * @param Request $request
+     * @param string $movie
      * 
      * @return array
      */
-    public function searchMovie(SearchMoviesRequest $request): array
+    public function searchMovie(string $movie): array
     {
-        $query = $request->input('movie');
-        $cacheKey = "searchResults{$query}";
+        $cacheKey = "searchResults{$movie}";
 
         if (Cache::has($cacheKey)) {
             return Cache::get($cacheKey);
         } else {
-            $search = \TMDB::searchAsync('movie', $query);
+            $search = \TMDB::searchAsync('movie', $movie);
             Cache::put($cacheKey, $search, now()->addMinutes(30));
             return $search;
         }
