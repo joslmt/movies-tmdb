@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class MovieControllerTest extends TestCase
@@ -66,6 +65,28 @@ class MovieControllerTest extends TestCase
         $this->get(route('seemore', 278))
             ->assertSuccessful()
             ->assertSee('The Shawshank Redemption');
+    }
+
+    /**
+     * @test     
+     */
+    public function guess_users_can_search_movies()
+    {
+        $query = ['movie' => 'Blade Runner'];
+        $this->get(route('search', $query))
+            ->assertSuccessful()
+            ->assertSee('movies found');
+    }
+
+    /**
+     * @test
+     */
+    public function auth_users_can_show_his_profile()
+    {
+        $this->getAuthUser();
+        $this->get(route('profile'))
+            ->assertSuccessful()
+            ->assertSee('users profile');
     }
 
     /**
