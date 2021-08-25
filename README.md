@@ -92,10 +92,14 @@ php artisan test
 We need another `.env` file, because the previous `.env` uses MySQL like database and the project tests uses SQLite, it's necessary a few changes.
 
 ```
-cp .env.example .env
+cp .env.example .env.testing
 ```
 
-Then replace all things relative to database connections with : 
+Then, create a SQLite database and replace all things relative to database connections with : 
+
+```
+touch database/database.sqlite
+```
 
 ```
 DB_CONNECTION=sqlite
