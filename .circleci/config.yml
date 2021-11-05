@@ -35,7 +35,7 @@ jobs:
       - run:
           name: "Create Environment file and APP KEY"
           command: |
-            mv .env.testing .env
+            mv .env.example .env
             php artisan key:generate
             
       # prepare the database
