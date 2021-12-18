@@ -4,16 +4,14 @@
             {{ __('Home') }}
         </h2>
     </x-slot>
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
             <h3 class="text-gray-800 text-2xl text-center font-bold">
                 movies found
             </h3>
             <x-movieweb.general.search></x-movieweb.general.search>
             <div class="grid grid-cols-4 bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                @foreach ($movies as $movie)
+                @foreach ($paginatedMovies as $movie)
                 <div class="w-auto my-0.5 mx-0.5 flex relative">
                     <div class="flex flex-wrap -m-4">
                         @if (empty($movie->poster_path))
@@ -27,9 +25,8 @@
                                 {{ $movie->title }}
                             </h1>
                             <p class="leading-relaxed my-4">
-                                {{ $movie->overview }}<a class="font-bold" href="{{ route('seemore', $movie->id) }}"> See more ...</a>
+                                {{ $movie->overview }}<a class="font-bold" href="{{ route('movieDetails', $movie->id) }}"> See more ...</a>
                             </p>
-
                             @auth
                             @if(in_array($movie->id, $userFavMovies))
                             <form action="{{ route('delete', $movie->id) }}" method="post">
@@ -46,7 +43,6 @@
                             </form>
                             @endif
                             @endauth
-
                         </div>
                     </div>
                 </div>

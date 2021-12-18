@@ -4,16 +4,14 @@
             {{ __('Home') }}
         </h2>
     </x-slot>
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
             <h3 class="text-gray-800 text-2xl text-center font-bold">
                 top 100 rated movies
             </h3>
             <x-movieweb.general.search></x-movieweb.general.search>
             <div class="grid grid-cols-4 bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                @foreach ($movies as $movie)
+                @foreach ($paginatedMovies as $movie)
                 <div class="w-auto my-0.5 mx-0.5 flex relative">
                     <div class="flex flex-wrap -m-4">
                         <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="http://image.tmdb.org/t/p/w500/{{$movie->poster_path}}">
@@ -24,16 +22,13 @@
                             </h1>
                             <p class="leading-relaxed my-4">
                                 {{ $movie->overview }}
-                                <a href="{{ route('seemore', $movie->id) }}" class="text-indigo-500 inline-flex items-center mt-4">See More
+                                <a href="{{ route('movieDetails', $movie->id) }}" class="text-indigo-500 inline-flex items-center mt-4">See More
                                     <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M5 12h14"></path>
                                         <path d="M12 5l7 7-7 7"></path>
                                     </svg>
                                 </a>
                             </p>
-
-
-
                             @auth
                             @if(in_array($movie->id, $userFavMovies))
                             <form action="{{ route('delete', $movie->id) }}" method="post">
@@ -50,7 +45,6 @@
                             </form>
                             @endif
                             @endauth
-
                         </div>
                     </div>
                 </div>
