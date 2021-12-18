@@ -5,6 +5,5 @@
                 <input type="text" placeholder="Blade runner" name="movie" id="" class="p-3 w-full border-none">
                 <input type="submit" value="search" class="w-1/3 bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 border-none">
         </form>
-
     </div>
 </div>

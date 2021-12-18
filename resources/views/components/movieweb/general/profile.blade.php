@@ -5,9 +5,7 @@
                 users profile
             </h3>
         </div>
-
         <section class="text-gray-600 body-font overflow-hidden">
-
             <div class="container px-5 pt-20 pb-14 mx-auto">
                 <div class="-my-8 divide-y-2 divide-gray-100">
                     <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 border-t">
@@ -20,7 +18,6 @@
                                         </svg>
                                     </div>
                                 </label>
-
                             </div>
                             <div class="md:flex-grow">
                                 <h2 class="text-2xl font-medium text-gray-900 title-font mb-2">
@@ -48,9 +45,7 @@
                 </div>
             </div>
         </section>
-
         @if (count($favMovies) === 0)
-
         @else
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <h3 class="text-gray-800 text-2xl text-center font-bold">
@@ -70,7 +65,7 @@
                                 <button class="mb-4 flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">Delete</button>
                             </form>
                         </div>
-                        <a href="{{ route('seemore', $favMovie->movie_id ) }}" class="block relative h-48 rounded overflow-hidden">
+                        <a href="{{ route('movieDetails', $favMovie->movie_id ) }}" class="block relative h-48 rounded overflow-hidden">
                             <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="http://image.tmdb.org/t/p/w500/{{ $favMovie->img_path }}">
                         </a>
                     </div>
