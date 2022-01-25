@@ -13,13 +13,17 @@ class MoviesController extends Controller
 {
     private const MOVIES_PER_PAGE = 12;
     
-    public function __construct(private CustomPaginator $paginator){}
+    public function __construct(
+        private CustomPaginator $paginator,
+        private Movie $movie
+    ){
+    }
 
-    public function home(Movie $movie, Category $category): View
+    public function home(Category $category): View
     {
-        $userFavMovies = $movie->favouriteMovies();
+        $userFavMovies = $this->movie->favouriteMovies();
 
-        $movies = $movie->topMovies();
+        $movies = $this->movie->topMovies();
 
         $category->setCategoryToMovie($movies);
 
@@ -38,10 +42,10 @@ class MoviesController extends Controller
         return view('dashboard', compact('paginatedMovies', 'paginator', 'userFavMovies'));
     }
 
-    public function movieDetails(Movie $movie, int $id): View
+    public function movieDetails(int $id): View
     {
-        $userFavMovies = $movie->favouriteMovies();
-        $movie_details = $movie->movieDetails($id);
+        $userFavMovies = $this->movie->favouriteMovies();
+        $movie_details = $this->movie->movieDetails($id);
         $videos = $movie_details->videos->results;
 
         return view('components.movieweb.movies.moviedetails', compact('movie_details', 'videos', 'userFavMovies'));
@@ -54,9 +58,9 @@ class MoviesController extends Controller
         return view('components.movieweb.general.profile', compact('favMovies', 'description'));
     }
 
-    public function description(Movie $movie, UpdatedUserDescriptionRequest $request)
+    public function description(UpdatedUserDescriptionRequest $request)
     {
-        $movie->updateDescription($request->input('description'));
+        $this->movie->updateDescription($request->input('description'));
         return redirect()->back();
     }
 
@@ -65,9 +69,9 @@ class MoviesController extends Controller
         return $movie->favouriteMovies();
     }
 
-    public function saveMovie(Movie $movie, int $id, string $title, string $poster_path)
+    public function saveMovie(int $id, string $title, string $poster_path)
     {
-        $movie->saveMovie($id, $title, $poster_path);
+        $this->movie->saveMovie($id, $title, $poster_path);
         return redirect()->back();
     }
 
@@ -95,9 +99,9 @@ class MoviesController extends Controller
         return view('components.movieweb.general.resultsfound', compact('paginatedMovies', 'paginator', 'userFavMovies'));
     }
 
-    public function removeMovie(Movie $movie, int $movie_id)
+    public function removeMovie(int $movie_id)
     {
-        $movie->removeMovie($movie_id);
+        $this->movie->removeMovie($movie_id);
         return redirect()->back();
     }
 }

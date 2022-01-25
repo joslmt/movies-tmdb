@@ -73,7 +73,7 @@ class Movie extends Model
         return $userDescription->toArray()[0];
     }
 
-    public function updateDescription(string $description)
+    public function updateDescription(string $description): void
     {
         $user = User::findOrfail(Auth::user()->id);
         $user->description = $description;
@@ -93,7 +93,7 @@ class Movie extends Model
         return null;
     }
 
-    public function saveMovie(int $movie_id, string $title, string $poster_path)
+    public function saveMovie(int $movie_id, string $title, string $poster_path): void
     {
         $user = User::findOrfail(Auth::user()->id);
         Movie::updateOrCreate([
@@ -110,7 +110,7 @@ class Movie extends Model
         );
     }
 
-    public function removeMovie(int $movie_id)
+    public function removeMovie(int $movie_id): void
     {
         $user = User::findOrfail(Auth::user()->id);
         $user->movies()->detach($movie_id);
